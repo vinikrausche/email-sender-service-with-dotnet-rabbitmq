@@ -1,0 +1,44 @@
+services:
+  emailsender:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: emailsender:1.0
+    container_name: emailsender
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASS: guest
+      EMAIL__HOST: ${EMAIL__HOST}
+      EMAIL__PORT: ${EMAIL__PORT}
+      EMAIL__USER: ${EMAIL__USER}
+      EMAIL__PASS: ${EMAIL__PASS}
+      EMAIL__FROMNAME: ${EMAIL__FROMNAME}
+      EMAIL__FROMEMAIL: ${EMAIL__FROMEMAIL}
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+volumes:
+  rabbitmq_data:

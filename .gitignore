@@ -1,0 +1,45 @@
+# Build outputs
+bin/
+obj/
+out/
+artifacts/
+TestResults/
+*.log
+
+# .NET user-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# IDEs
+.vs/
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Coverage
+coverage/
+coverage.*
+*.coverage
+*.coveragexml
+
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+secrets.json
+appsettings.Local.json
+appsettings.*.Local.json
+
+# OS files
+.DS_Store
+Thumbs.db
