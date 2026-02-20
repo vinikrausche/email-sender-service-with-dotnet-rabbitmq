@@ -1,6 +1,8 @@
 using EmailSender.Factory;
 using EmailSender.Messaging.Producer;
+using EmailSender.Records;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace EmailSender.Controllers
 {
@@ -15,9 +17,10 @@ namespace EmailSender.Controllers
             _producer = producer;
         }
         [HttpPost]
-        public async Task<IActionResult>  sendEmail([FromBody] string texto, CancellationToken ct)
+        public async Task<IActionResult>  sendEmail([FromBody] SendEmailRequest body, CancellationToken ct)
         {
-            await _producer.PublishAsync("email-sender", texto, ct);
+            var json = JsonConvert.SerializeObject(body);
+            await _producer.PublishAsync("email-sender", json, ct);
             return Accepted();
         }
     }
