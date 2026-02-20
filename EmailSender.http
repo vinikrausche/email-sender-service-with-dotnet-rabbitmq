@@ -1,6 +1,18 @@
-@EmailSender_HostAddress = http://localhost:5241
+@EmailSender_HostAddress = http://localhost:8080
 
 GET {{EmailSender_HostAddress}}/weatherforecast/
 Accept: application/json
+
+###
+
+POST {{EmailSender_HostAddress}}/api/EmailSender
+Content-Type: application/json
+
+{
+  "to": "recipient@example.com",
+  "toName": "Recipient Name",
+  "subject": "Test email",
+  "body": "Hello from API + RabbitMQ + MailKit"
+}
 
 ###

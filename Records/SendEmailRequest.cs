@@ -2,10 +2,30 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EmailSender.Records
 {
-    public record SendEmailRequest(
-        [property: Required,EmailAddress] string To,
-        [property:Required,MinLength(1)] string ToName,
-        [property: Required, StringLength(100)] string Subject,
-        [property:Required, MinLength(1)] string Body
-    );
+    public sealed class SendEmailRequest
+    {
+        [Required, EmailAddress]
+        public string To { get; init; } = string.Empty;
+
+        [Required, MinLength(1)]
+        public string ToName { get; init; } = string.Empty;
+
+        [Required, StringLength(100)]
+        public string Subject { get; init; } = string.Empty;
+
+        [Required, MinLength(1)]
+        public string Body { get; init; } = string.Empty;
+
+        public SendEmailRequest()
+        {
+        }
+
+        public SendEmailRequest(string To, string ToName, string Subject, string Body)
+        {
+            this.To = To;
+            this.ToName = ToName;
+            this.Subject = Subject;
+            this.Body = Body;
+        }
+    }
 }

@@ -9,10 +9,10 @@ public class SendEmailRequestValidationTests
     public void Should_BeValid_WhenAllFieldsAreCorrect()
     {
         var request = new SendEmailRequest(
-            To: "destinatario@exemplo.com",
-            ToName: "Destinatario",
-            Subject: "Assunto",
-            Body: "Corpo do email");
+            To: "recipient@example.com",
+            ToName: "Recipient",
+            Subject: "Subject",
+            Body: "Email body");
 
         var (isValid, errors) = Validate(request);
 
@@ -24,10 +24,10 @@ public class SendEmailRequestValidationTests
     public void Should_BeInvalid_WhenEmailIsMalformed()
     {
         var request = new SendEmailRequest(
-            To: "email-invalido",
-            ToName: "Destinatario",
-            Subject: "Assunto",
-            Body: "Corpo do email");
+            To: "invalid-email",
+            ToName: "Recipient",
+            Subject: "Subject",
+            Body: "Email body");
 
         var (isValid, errors) = Validate(request);
 
@@ -39,10 +39,10 @@ public class SendEmailRequestValidationTests
     public void Should_BeInvalid_WhenToNameIsEmpty()
     {
         var request = new SendEmailRequest(
-            To: "destinatario@exemplo.com",
+            To: "recipient@example.com",
             ToName: string.Empty,
-            Subject: "Assunto",
-            Body: "Corpo do email");
+            Subject: "Subject",
+            Body: "Email body");
 
         var (isValid, errors) = Validate(request);
 
@@ -54,9 +54,9 @@ public class SendEmailRequestValidationTests
     public void Should_BeInvalid_WhenBodyIsEmpty()
     {
         var request = new SendEmailRequest(
-            To: "destinatario@exemplo.com",
-            ToName: "Destinatario",
-            Subject: "Assunto",
+            To: "recipient@example.com",
+            ToName: "Recipient",
+            Subject: "Subject",
             Body: string.Empty);
 
         var (isValid, errors) = Validate(request);

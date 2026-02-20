@@ -1,4 +1,5 @@
 using EmailSender.Factory;
+using EmailSender.Infra;
 using EmailSender.Messaging.Producer;
 using EmailSender.Messaging.Consumer;
 
@@ -10,6 +11,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddSingleton<RabbitMqFactory>();
 builder.Services.AddSingleton<RabbitMqProducer>();
+builder.Services.AddSingleton<MailKitSender>();
 builder.Services.AddHostedService<RabbitMqConsumer>();
 
 var app = builder.Build();
@@ -20,7 +22,6 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
 app.MapControllers();
 
 var summaries = new[]
